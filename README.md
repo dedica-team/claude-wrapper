@@ -9,3 +9,8 @@ Update the installation script:
 curl -fsSL https://claude.ai/install.sh > install.sh
 chmod +x install.sh
 ```
+
+Build Docker image:
+```bash
+docker build . --tag claudew
+```
