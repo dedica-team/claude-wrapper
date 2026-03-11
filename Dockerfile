@@ -3,6 +3,8 @@ LABEL authors="dedica GmbH"
 
 RUN apt-get update && apt-get install -y curl jq
 
+# Add the Claude binary location to the path.
+ENV PATH=/root/.local/bin:${PATH}
 ENV CLAUDE_VERSION="2.1.72"
 ADD install.sh /tmp/install.sh
 RUN /tmp/install.sh ${CLAUDE_VERSION}
