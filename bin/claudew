@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Stop script on failure.
+set -e -o pipefail
+
+DOCKER="docker"
+
+# If on Windows and using mingw64/Git-Bash, we need to prefix the docker command with "winpty"
+if command -v winpty &> /dev/null; then
+    DOCKER="winpty $DOCKER"
+fi
+
+# Create config files for Claudew on the host system.
+CLAUDEW_CONFIG_DIRECTORY=~/.claudew
+CLAUDEW_CONFIG_FILE=~/.claudew.json
+mkdir -p ${CLAUDEW_CONFIG_DIRECTORY}
+touch ${CLAUDEW_CONFIG_FILE}
+
+$DOCKER run --user="$UID" --rm \
+       --interactive --tty \
+       --volume "/$(pwd):/project" \
+       --volume ${CLAUDEW_CONFIG_DIRECTORY}:/root/.claude/ \
+       --volume ${CLAUDEW_CONFIG_FILE}:/root/.claude.json \
+       --env "ADDITIONAL_CLAUDE_ARGUMENTS=$*" \
+       claudew
