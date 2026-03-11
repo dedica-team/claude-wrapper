@@ -1,7 +1,7 @@
 FROM ubuntu:24.04
 LABEL authors="dedica GmbH"
 
-RUN apt-get update && apt-get install -y curl jq less
+RUN apt-get update && apt-get install -y curl jq less git
 
 # Add the Claude binary location to the path.
 ENV PATH=/root/.local/bin:${PATH}
