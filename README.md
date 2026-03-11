@@ -14,3 +14,8 @@ Build Docker image:
 ```bash
 docker build . --tag claudew
 ```
+
+Access container:
+```bash
+docker run --interactive --tty claudew bash
+```
