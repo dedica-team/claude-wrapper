@@ -4,7 +4,7 @@ LABEL authors="dedica GmbH"
 RUN apt-get update && apt-get install -y curl jq less git
 
 ENV CLAUDE_HOME="/home/claude"
-RUN useradd -m -s /bin/bash --home-dir ${CLAUDE_HOME} claude
+RUN useradd --create-home --shell /bin/bash --home-dir ${CLAUDE_HOME} claude
 USER claude
 
 # Add the Claude binary location to the path.
