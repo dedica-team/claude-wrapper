@@ -3,21 +3,29 @@ LABEL authors="dedica GmbH"
 
 RUN apt-get update && apt-get install -y curl jq less git
 
+ENV CLAUDE_HOME="/home/claude"
+RUN useradd -m -s /bin/bash --home-dir ${CLAUDE_HOME} claude
+USER claude
+
 # Add the Claude binary location to the path.
-ENV PATH=/root/.local/bin:${PATH}
+ENV PATH=${CLAUDE_HOME}/.local/bin:${PATH}
 ENV CLAUDE_VERSION="2.1.72"
 ADD install.sh /tmp/install.sh
 RUN /tmp/install.sh ${CLAUDE_VERSION}
 
 # Add additional settings for Claude.
-ENV ADDITIONAL_SETTINGS_PATH=/root/additonal-claude-settings.json
-ADD additonal-claude-settings.json ${ADDITIONAL_SETTINGS_PATH}
+ENV ADDITIONAL_SETTINGS_PATH=${CLAUDE_HOME}/additonal-claude-settings.json
+ADD --chown=claude:claude additonal-claude-settings.json ${ADDITIONAL_SETTINGS_PATH}
 
-ENV PROJECT_DIRECTORY=/project
+ENV PROJECT_DIRECTORY=${CLAUDE_HOME}/project
 RUN mkdir -p ${PROJECT_DIRECTORY}
 WORKDIR ${PROJECT_DIRECTORY}
 
+# Give full permission on the home directory to everybody to ensure
+# that the files will even be accessible of another user ID is assigned
+# when running the container.
+RUN chmod --recursive g+rwx,o+rwx ${CLAUDE_HOME}
+
 # Used to pass additional arguments to Claude.
 ENV ADDITIONAL_CLAUDE_ARGUMENTS=""
-
 CMD ["bash", "-c", "cd ${PROJECT_DIRECTORY} && claude --settings ${ADDITIONAL_SETTINGS_PATH} ${ADDITIONAL_CLAUDE_ARGUMENTS}"]

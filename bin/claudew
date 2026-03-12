@@ -16,10 +16,13 @@ CLAUDEW_CONFIG_FILE=~/.claudew.json
 mkdir -p ${CLAUDEW_CONFIG_DIRECTORY}
 touch ${CLAUDEW_CONFIG_FILE}
 
+CLAUDE_HOME=/home/claude
+
 $DOCKER run --user="$UID" --rm \
        --interactive --tty \
-       --volume "/$(pwd):/project" \
-       --volume ${CLAUDEW_CONFIG_DIRECTORY}:/root/.claude/ \
-       --volume ${CLAUDEW_CONFIG_FILE}:/root/.claude.json \
+       --volume "/$(pwd):${CLAUDE_HOME}/project" \
+       --volume ${CLAUDEW_CONFIG_DIRECTORY}:${CLAUDE_HOME}/.claude/ \
+       --volume ${CLAUDEW_CONFIG_FILE}:${CLAUDE_HOME}/.claude.json \
+       --env "HOME=${CLAUDE_HOME}" \
        --env "ADDITIONAL_CLAUDE_ARGUMENTS=$*" \
        claudew
