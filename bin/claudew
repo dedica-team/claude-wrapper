@@ -14,7 +14,10 @@ fi
 CLAUDEW_CONFIG_DIRECTORY=~/.claudew
 CLAUDEW_CONFIG_FILE=~/.claudew.json
 mkdir -p ${CLAUDEW_CONFIG_DIRECTORY}
-touch ${CLAUDEW_CONFIG_FILE}
+if [ ! -f ${CLAUDEW_CONFIG_FILE} ]; then
+  # Initialize config file.
+  echo "{}" > ${CLAUDEW_CONFIG_FILE}
+fi
 
 CLAUDE_HOME=/home/claude
 
