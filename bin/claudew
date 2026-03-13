@@ -29,12 +29,18 @@ if [ ! -f ${CLAUDEW_CONFIG_FILE} ]; then
 fi
 
 CLAUDE_HOME=/home/claude
-exec $DOCKER run --user "$(id -u):$(id -g)" --rm \
-       --interactive --tty \
-       --volume "$(pwd):${CLAUDE_HOME}/project" \
-       --volume "${SCRIPT_DIR}/../not-allowed-to-read.txt:${CLAUDE_HOME}/project/.env" \
-       --volume ${CLAUDEW_CONFIG_DIRECTORY}:${CLAUDE_HOME}/.claude/ \
-       --volume ${CLAUDEW_CONFIG_FILE}:${CLAUDE_HOME}/.claude.json \
-       --env "HOME=${CLAUDE_HOME}" \
-       --env "ADDITIONAL_CLAUDE_ARGUMENTS=$*" \
-       "${IMAGE_TAG}"
+DOCKER_ARGS=(
+    --user "$(id -u):$(id -g)" --rm
+    --interactive --tty
+    --volume "$(pwd):${CLAUDE_HOME}/project"
+    --volume "${CLAUDEW_CONFIG_DIRECTORY}:${CLAUDE_HOME}/.claude/"
+    --volume "${CLAUDEW_CONFIG_FILE}:${CLAUDE_HOME}/.claude.json"
+    --env "HOME=${CLAUDE_HOME}"
+    --env "ADDITIONAL_CLAUDE_ARGUMENTS=$*"
+)
+# If the project has a .env file, mount a file over it to prevent secrets from leaking into the container.
+if [ -f "$(pwd)/.env" ]; then
+    DOCKER_ARGS+=(--volume "${SCRIPT_DIR}/../not-allowed-to-read.txt:${CLAUDE_HOME}/project/.env")
+fi
+
+exec $DOCKER run "${DOCKER_ARGS[@]}" "${IMAGE_TAG}" bash
