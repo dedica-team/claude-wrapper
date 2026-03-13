@@ -3,7 +3,7 @@
 # Stop script on failure.
 set -e -o pipefail
 
-CLAUDE_VERSION=2.1.74
+CLAUDE_VERSION=${CLAUDE_VERSION:-2.1.74}
 
 DOCKER="docker"
 # If on Windows and using mingw64/Git-Bash, we need to prefix the docker command with "winpty"
