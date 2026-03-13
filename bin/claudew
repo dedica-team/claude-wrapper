@@ -21,7 +21,7 @@ fi
 
 CLAUDE_HOME=/home/claude
 
-$DOCKER run --user "$(id -u):$(id -g)" --rm \
+exec $DOCKER run --user "$(id -u):$(id -g)" --rm \
        --interactive --tty \
        --volume "/$(pwd):${CLAUDE_HOME}/project" \
        --volume ${CLAUDEW_CONFIG_DIRECTORY}:${CLAUDE_HOME}/.claude/ \
