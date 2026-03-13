@@ -4,10 +4,16 @@
 set -e -o pipefail
 
 DOCKER="docker"
-
 # If on Windows and using mingw64/Git-Bash, we need to prefix the docker command with "winpty"
 if command -v winpty &> /dev/null; then
     DOCKER="winpty $DOCKER"
+fi
+
+# Build the Docker image, if it does not exist yet.
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if ! $DOCKER image inspect claudew &> /dev/null; then
+    echo "Docker image 'claudew' not found. Building it now..."
+    $DOCKER build --tag claudew "${SCRIPT_DIR}/.."
 fi
 
 # Create config files for Claudew on the host system.
@@ -20,7 +26,6 @@ if [ ! -f ${CLAUDEW_CONFIG_FILE} ]; then
 fi
 
 CLAUDE_HOME=/home/claude
-
 exec $DOCKER run --user "$(id -u):$(id -g)" --rm \
        --interactive --tty \
        --volume "/$(pwd):${CLAUDE_HOME}/project" \
