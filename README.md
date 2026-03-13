@@ -2,7 +2,13 @@
 
 Claude in a container to restrict its filesystem access.
 
-## Development
+## Usage
+
+To use the wrapper, start the `bin/claudew` script in your project directory.
+
+If you use `claudew` often, you may consider adding the `bin` directory to your `$PATH`. 
+
+## claudew Development
 
 Update the installation script:
 ```bash
