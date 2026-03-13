@@ -29,14 +29,16 @@ if [ ! -f ${CLAUDEW_CONFIG_FILE} ]; then
 fi
 
 CLAUDE_HOME=/home/claude
+ADDITIONAL_SETTINGS_PATH=${SCRIPT_DIR}/../additional-claude-settings.json
 DOCKER_ARGS=(
     --user "$(id -u):$(id -g)" --rm
     --interactive --tty
     --volume "$(pwd):${CLAUDE_HOME}/project"
     --volume "${CLAUDEW_CONFIG_DIRECTORY}:${CLAUDE_HOME}/.claude/"
     --volume "${CLAUDEW_CONFIG_FILE}:${CLAUDE_HOME}/.claude.json"
+    --volume "${ADDITIONAL_SETTINGS_PATH}:${CLAUDE_HOME}/additional-claude-settings.json"
     --env "HOME=${CLAUDE_HOME}"
-    --env "ADDITIONAL_CLAUDE_ARGUMENTS=$*"
+    --env "ADDITIONAL_CLAUDE_ARGUMENTS=--settings ${CLAUDE_HOME}/additional-claude-settings.json $*"
 )
 # If the project has a .env file, mount a file over it to prevent secrets from leaking into the container.
 if [ -f "$(pwd)/.env" ]; then

@@ -13,10 +13,6 @@ ARG CLAUDE_VERSION="2.1.72"
 ADD install.sh /tmp/install.sh
 RUN /tmp/install.sh ${CLAUDE_VERSION}
 
-# Add additional settings for Claude.
-ENV ADDITIONAL_SETTINGS_PATH=${CLAUDE_HOME}/additional-claude-settings.json
-ADD --chown=claude:claude additional-claude-settings.json ${ADDITIONAL_SETTINGS_PATH}
-
 ENV PROJECT_DIRECTORY=${CLAUDE_HOME}/project
 RUN mkdir -p ${PROJECT_DIRECTORY}
 WORKDIR ${PROJECT_DIRECTORY}
@@ -28,4 +24,4 @@ RUN chmod --recursive g+rwx,o+rwx ${CLAUDE_HOME}
 
 # Used to pass additional arguments to Claude.
 ENV ADDITIONAL_CLAUDE_ARGUMENTS=""
-CMD ["bash", "-c", "cd ${PROJECT_DIRECTORY} && claude --settings ${ADDITIONAL_SETTINGS_PATH} ${ADDITIONAL_CLAUDE_ARGUMENTS}"]
+CMD ["bash", "-c", "cd ${PROJECT_DIRECTORY} && claude ${ADDITIONAL_CLAUDE_ARGUMENTS}"]
