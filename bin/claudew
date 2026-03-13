@@ -36,4 +36,4 @@ exec $DOCKER run --user "$(id -u):$(id -g)" --rm \
        --volume ${CLAUDEW_CONFIG_FILE}:${CLAUDE_HOME}/.claude.json \
        --env "HOME=${CLAUDE_HOME}" \
        --env "ADDITIONAL_CLAUDE_ARGUMENTS=$*" \
-       ${IMAGE_TAG}
+       "${IMAGE_TAG}"
