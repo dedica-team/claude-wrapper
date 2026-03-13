@@ -3,6 +3,8 @@
 # Stop script on failure.
 set -e -o pipefail
 
+CLAUDE_VERSION=2.1.74
+
 DOCKER="docker"
 # If on Windows and using mingw64/Git-Bash, we need to prefix the docker command with "winpty"
 if command -v winpty &> /dev/null; then
@@ -11,9 +13,10 @@ fi
 
 # Build the Docker image, if it does not exist yet.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-if ! $DOCKER image inspect claudew &> /dev/null; then
+IMAGE_TAG=claudew-${CLAUDE_VERSION}
+if ! $DOCKER image inspect ${IMAGE_TAG} &> /dev/null; then
     echo "Docker image 'claudew' not found. Building it now..."
-    $DOCKER build --tag claudew "${SCRIPT_DIR}/.."
+    $DOCKER build --build-arg "CLAUDE_VERSION=${CLAUDE_VERSION}" --tag ${IMAGE_TAG} "${SCRIPT_DIR}/.."
 fi
 
 # Create config files for Claudew on the host system.
@@ -33,4 +36,4 @@ exec $DOCKER run --user "$(id -u):$(id -g)" --rm \
        --volume ${CLAUDEW_CONFIG_FILE}:${CLAUDE_HOME}/.claude.json \
        --env "HOME=${CLAUDE_HOME}" \
        --env "ADDITIONAL_CLAUDE_ARGUMENTS=$*" \
-       claudew
+       ${IMAGE_TAG}
