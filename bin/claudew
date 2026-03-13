@@ -31,7 +31,7 @@ fi
 CLAUDE_HOME=/home/claude
 exec $DOCKER run --user "$(id -u):$(id -g)" --rm \
        --interactive --tty \
-       --volume "/$(pwd):${CLAUDE_HOME}/project" \
+       --volume "$(pwd):${CLAUDE_HOME}/project" \
        --volume ${CLAUDEW_CONFIG_DIRECTORY}:${CLAUDE_HOME}/.claude/ \
        --volume ${CLAUDEW_CONFIG_FILE}:${CLAUDE_HOME}/.claude.json \
        --env "HOME=${CLAUDE_HOME}" \
