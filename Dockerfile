@@ -14,8 +14,8 @@ ADD install.sh /tmp/install.sh
 RUN /tmp/install.sh ${CLAUDE_VERSION}
 
 # Add additional settings for Claude.
-ENV ADDITIONAL_SETTINGS_PATH=${CLAUDE_HOME}/additonal-claude-settings.json
-ADD --chown=claude:claude additonal-claude-settings.json ${ADDITIONAL_SETTINGS_PATH}
+ENV ADDITIONAL_SETTINGS_PATH=${CLAUDE_HOME}/additional-claude-settings.json
+ADD --chown=claude:claude additional-claude-settings.json ${ADDITIONAL_SETTINGS_PATH}
 
 ENV PROJECT_DIRECTORY=${CLAUDE_HOME}/project
 RUN mkdir -p ${PROJECT_DIRECTORY}
