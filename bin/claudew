@@ -43,4 +43,4 @@ if [ -f "$(pwd)/.env" ]; then
     DOCKER_ARGS+=(--volume "${SCRIPT_DIR}/../not-allowed-to-read.txt:${CLAUDE_HOME}/project/.env")
 fi
 
-exec $DOCKER run "${DOCKER_ARGS[@]}" "${IMAGE_TAG}" bash
+exec $DOCKER run "${DOCKER_ARGS[@]}" "${IMAGE_TAG}"
