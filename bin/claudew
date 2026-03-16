@@ -45,11 +45,17 @@ PROJECT_NAME=$(basename "$(pwd)")
 PROJECT_DIR=${CLAUDE_HOME}/project/${PROJECT_NAME}
 ADDITIONAL_SETTINGS_PATH=${SCRIPT_DIR}/../additional-claude-settings.json
 
-# Per default, the previous conversation in a project is continued,
+# Per default, the previous conversation in a project is continued (if one exists),
 # unless the --new-session flag is passed.
 # That flag is not among the default Claude parameters and will not be
 # passed on.
-CONTINUE_FLAG="--continue"
+PROJECT_SESSION_DIR="${CLAUDEW_CONFIG_DIRECTORY}/projects/-home-claude-project-${PROJECT_NAME}"
+if compgen -G "${PROJECT_SESSION_DIR}/*.jsonl" > /dev/null 2>&1; then
+    # Previous session exists.
+    CONTINUE_FLAG="--continue"
+else
+    CONTINUE_FLAG=""
+fi
 PASSTHROUGH_ARGS=()
 for arg in "$@"; do
     if [ "$arg" = "--new-session" ]; then
