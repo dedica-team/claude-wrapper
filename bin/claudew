@@ -41,7 +41,7 @@ DOCKER_ARGS=(
     --volume "${CLAUDEW_CONFIG_FILE}:${CLAUDE_HOME}/.claude.json"
     --volume "${ADDITIONAL_SETTINGS_PATH}:${CLAUDE_HOME}/additional-claude-settings.json"
     --env "HOME=${CLAUDE_HOME}"
-    --env "ADDITIONAL_CLAUDE_ARGUMENTS=--settings ${CLAUDE_HOME}/additional-claude-settings.json $*"
+    --env "ADDITIONAL_CLAUDE_ARGUMENTS=--settings ${CLAUDE_HOME}/additional-claude-settings.json --continue $*"
 )
 
 # If the project has a .env file, mount a file over it to prevent secrets from leaking into the container.
