@@ -40,6 +40,7 @@ DOCKER_ARGS=(
     --env "HOME=${CLAUDE_HOME}"
     --env "ADDITIONAL_CLAUDE_ARGUMENTS=--settings ${CLAUDE_HOME}/additional-claude-settings.json $*"
 )
+
 # If the project has a .env file, mount a file over it to prevent secrets from leaking into the container.
 if [ -f "$(pwd)/.env" ]; then
     DOCKER_ARGS+=(--volume "${SCRIPT_DIR}/../not-allowed-to-read.txt:${CLAUDE_HOME}/project/.env")
