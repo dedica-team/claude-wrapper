@@ -3,6 +3,7 @@
   "autoUpdates": false,
   "permissions": {
     "allow": [
+      "Edit(/**)",
       "Bash(grep *)",
       "Bash(cat *)",
       "Bash(ls *)",
