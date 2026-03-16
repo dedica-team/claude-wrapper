@@ -6,6 +6,8 @@
       "Edit(/**)",
       "Bash(grep *)",
       "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
       "Bash(ls *)",
       "Bash(git *)"
     ],
