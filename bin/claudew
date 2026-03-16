@@ -43,6 +43,12 @@ for arg in "$@"; do
     if [ "$arg" = "--new-session" ]; then
         CONTINUE_FLAG=""
     else
+        if [ "$arg" = "--resume" ] || [ "$arg" = "--continue" ]; then
+            # The user wants to resume a session (which might not be compatible with --continue)
+            # or explicitly passed --continue.
+            # In both cases, we do not want to inject another --continue flag.
+            CONTINUE_FLAG=""
+        fi
         PASSTHROUGH_ARGS+=("$arg")
     fi
 done
