@@ -54,6 +54,7 @@ if compgen -G "${PROJECT_SESSION_DIR}/*.jsonl" > /dev/null 2>&1; then
     # Previous session exists.
     CONTINUE_FLAG="--continue"
 else
+    # No previous session, do not try to continue.
     CONTINUE_FLAG=""
 fi
 PASSTHROUGH_ARGS=()
