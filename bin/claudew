@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+#
+# A wrapper that runs Claude in a container to restrict its access.
+#
+# Simplest usage: Switch to your project directory and run `claudew`:
+#
+#     cd ~/my-project
+#     claudew
+#
+# Per default, claudew will continue the latest conversation for that project.
+# Override that behavior by passing "--new-session" as a parameter.
+#
+
 # Stop script on failure.
 set -e -o pipefail
 
