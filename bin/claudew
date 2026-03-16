@@ -44,5 +44,12 @@ DOCKER_ARGS=(
 if [ -f "$(pwd)/.env" ]; then
     DOCKER_ARGS+=(--volume "${SCRIPT_DIR}/../not-allowed-to-read.txt:${CLAUDE_HOME}/project/.env")
 fi
+# Also block .env files one level deeper.
+for env_file in "$(pwd)"/*/.env; do
+    if [ -f "${env_file}" ]; then
+        subdirectory=$(basename "$(dirname "${env_file}")")
+        DOCKER_ARGS+=(--volume "${SCRIPT_DIR}/../not-allowed-to-read.txt:${CLAUDE_HOME}/project/${subdirectory}/.env")
+    fi
+done
 
 exec $DOCKER run "${DOCKER_ARGS[@]}" "${IMAGE_TAG}"
