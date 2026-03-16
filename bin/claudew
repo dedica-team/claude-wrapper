@@ -29,11 +29,14 @@ if [ ! -f ${CLAUDEW_CONFIG_FILE} ]; then
 fi
 
 CLAUDE_HOME=/home/claude
+PROJECT_NAME=$(basename "$(pwd)")
+PROJECT_DIR=${CLAUDE_HOME}/project/${PROJECT_NAME}
 ADDITIONAL_SETTINGS_PATH=${SCRIPT_DIR}/../additional-claude-settings.json
 DOCKER_ARGS=(
     --user "$(id -u):$(id -g)" --rm
     --interactive --tty
-    --volume "$(pwd):${CLAUDE_HOME}/project"
+    --volume "$(pwd):${PROJECT_DIR}"
+    --workdir "${PROJECT_DIR}"
     --volume "${CLAUDEW_CONFIG_DIRECTORY}:${CLAUDE_HOME}/.claude/"
     --volume "${CLAUDEW_CONFIG_FILE}:${CLAUDE_HOME}/.claude.json"
     --volume "${ADDITIONAL_SETTINGS_PATH}:${CLAUDE_HOME}/additional-claude-settings.json"
@@ -43,13 +46,13 @@ DOCKER_ARGS=(
 
 # If the project has a .env file, mount a file over it to prevent secrets from leaking into the container.
 if [ -f "$(pwd)/.env" ]; then
-    DOCKER_ARGS+=(--volume "${SCRIPT_DIR}/../not-allowed-to-read.txt:${CLAUDE_HOME}/project/.env")
+    DOCKER_ARGS+=(--volume "${SCRIPT_DIR}/../not-allowed-to-read.txt:${PROJECT_DIR}/.env")
 fi
 # Also block .env files one level deeper.
 for env_file in "$(pwd)"/*/.env; do
     if [ -f "${env_file}" ]; then
         subdirectory=$(basename "$(dirname "${env_file}")")
-        DOCKER_ARGS+=(--volume "${SCRIPT_DIR}/../not-allowed-to-read.txt:${CLAUDE_HOME}/project/${subdirectory}/.env")
+        DOCKER_ARGS+=(--volume "${SCRIPT_DIR}/../not-allowed-to-read.txt:${PROJECT_DIR}/${subdirectory}/.env")
     fi
 done
 
