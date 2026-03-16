@@ -24,4 +24,4 @@ RUN chmod --recursive g+rwx,o+rwx ${CLAUDE_HOME}
 
 # Used to pass additional arguments to Claude.
 ENV ADDITIONAL_CLAUDE_ARGUMENTS=""
-CMD ["bash", "-c", "cd ${PROJECT_DIRECTORY} && claude ${ADDITIONAL_CLAUDE_ARGUMENTS}"]
+CMD ["bash", "-c", "claude ${ADDITIONAL_CLAUDE_ARGUMENTS}"]
