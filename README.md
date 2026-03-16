@@ -6,7 +6,13 @@ Claude in a container to restrict its filesystem access.
 
 To use the wrapper, start the `bin/claudew` script in your project directory.
 
-If you use `claudew` often, you may consider adding the `bin` directory to your `$PATH`. 
+If you use `claudew` often, you may consider adding the `bin` directory to your `$PATH`.
+
+### Additional Behavior
+
+Per default, `claudew` will continue the latest conversation for your project.
+Override that behavior by passing "--new-session" as a parameter.
+
 
 ## claudew Development
 
