@@ -11,6 +11,11 @@
 # Per default, claudew will continue the latest conversation for that project.
 # Override that behavior by passing "--new-session" as a parameter.
 #
+# Supported environment variables:
+# - CLAUDE_VERSION (optional): The version of the Claude CLI that will be used  (e.g. "2.1.74").
+# - CLAUDE_MODEL (optional): The model that will be active (e.g. "claude-opus-4-6"). The model can
+#                            also be changed within the session.
+#
 
 # Stop script on failure.
 set -e -o pipefail
