@@ -2,6 +2,13 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "autoUpdates": false,
   "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ],
+    "ask": [
+      "Bash(git push *)"
+    ],
     "allow": [
       "Edit(/**)",
       "Bash(grep *)",
@@ -12,13 +19,6 @@
       "Bash(echo *)",
       "Bash(ls *)",
       "Bash(git *)"
-    ],
-    "ask": [
-      "Bash(git push *)"
-    ],
-    "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)"
     ]
   },
   "attribution": {
