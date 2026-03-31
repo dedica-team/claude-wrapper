@@ -103,13 +103,13 @@ DOCKER_ARGS=(
 
 # If the project has a .env file, mount a file over it to prevent secrets from leaking into the container.
 if [ -f "$(pwd)/.env" ]; then
-    DOCKER_ARGS+=(--volume "${SCRIPT_DIR}/../not-allowed-to-read.txt:${PROJECT_DIR}/.env")
+    DOCKER_ARGS+=(--volume "${SCRIPT_DIR}/../not-allowed-to-read.txt:${PROJECT_DIR}/.env:ro")
 fi
 # Also block .env files one level deeper.
 for env_file in "$(pwd)"/*/.env; do
     if [ -f "${env_file}" ]; then
         subdirectory=$(basename "$(dirname "${env_file}")")
-        DOCKER_ARGS+=(--volume "${SCRIPT_DIR}/../not-allowed-to-read.txt:${PROJECT_DIR}/${subdirectory}/.env")
+        DOCKER_ARGS+=(--volume "${SCRIPT_DIR}/../not-allowed-to-read.txt:${PROJECT_DIR}/${subdirectory}/.env:ro")
     fi
 done
 
