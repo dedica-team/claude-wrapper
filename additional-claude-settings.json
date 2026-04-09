@@ -10,6 +10,7 @@
       "Bash(git push *)"
     ],
     "allow": [
+      "WebSearch",
       "Edit(/**)",
       "Bash(grep *)",
       "Bash(cat *)",
