@@ -1,7 +1,18 @@
 FROM ubuntu:24.04
 LABEL authors="dedica GmbH"
 
-RUN apt-get update && apt-get install -y curl jq less git
+RUN apt-get update && apt-get install -y curl wget jq less git zip unzip gh
+
+# Install GitHub CLI (gh) tool
+# https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian
+RUN mkdir -p -m 755 /etc/apt/keyrings \
+    && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+    && cat $out | tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+    && chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+    && mkdir -p -m 755 /etc/apt/sources.list.d \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+    && apt update \
+    && apt install gh -y
 
 ENV CLAUDE_HOME="/home/claude"
 RUN useradd --create-home --shell /bin/bash --home-dir ${CLAUDE_HOME} claude
@@ -9,7 +20,7 @@ USER claude
 
 # Add the Claude binary location to the path.
 ENV PATH=${CLAUDE_HOME}/.local/bin:${PATH}
-ARG CLAUDE_VERSION="2.1.72"
+ARG CLAUDE_VERSION="2.1.74"
 ADD install.sh /tmp/install.sh
 RUN /tmp/install.sh ${CLAUDE_VERSION}
 

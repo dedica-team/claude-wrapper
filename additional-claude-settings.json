@@ -20,6 +20,13 @@
       "Bash(sed *)",
       "Bash(echo *)",
       "Bash(ls *)",
+      "Bash(zip *)",
+      "Bash(unzip *)",
+      "Bash(touch *)",
+      "Bash(mkdir *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(gh *)",
       "Bash(git *)"
     ]
   },
