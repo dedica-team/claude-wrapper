@@ -27,6 +27,11 @@ Build Docker image:
 docker build . --tag claudew
 ```
 
+Rebuild an image with a specific Claude version:
+```bash
+CLAUDE_VERSION=2.1.74 && docker build --build-arg "CLAUDE_VERSION=${CLAUDE_VERSION}" --tag "claudew:${CLAUDE_VERSION}" .
+```
+
 Access container:
 ```bash
 docker run --interactive --tty claudew bash
