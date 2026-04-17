@@ -11,7 +11,7 @@
     ],
     "allow": [
       "WebSearch",
-      "WebFetch(domain:**)",
+      "WebFetch",
       "Edit(/**)",
       "Bash(grep *)",
       "Bash(cat *)",
