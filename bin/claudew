@@ -121,6 +121,11 @@ for env_file in "$(pwd)"/*/.env; do
     fi
 done
 
+# If the user has a CLAUDE.md in their home directory, mount it into the container.
+if [ -f ~/CLAUDE.md ]; then
+    DOCKER_ARGS+=(--volume "$HOME/CLAUDE.md:${CLAUDE_HOME}/CLAUDE.md:ro")
+fi
+
 if [ "${BASH_MODE}" = true ]; then
     DOCKER_ARGS+=(--entrypoint bash)
 fi
