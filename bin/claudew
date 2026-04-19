@@ -11,6 +11,10 @@
 # Per default, claudew will continue the latest conversation for that project.
 # Override that behavior by passing "--new-session" as a parameter.
 #
+# Pass the argument "--bash" to start a bash inside the container, instead of
+# starting Claude.
+# That can be useful to inspect the tools etc. that are available to Claude.
+#
 # Supported environment variables:
 # - CLAUDE_VERSION (optional): The version of the Claude CLI that will be used  (e.g. "2.1.74").
 # - CLAUDE_MODEL (optional): The model that will be active (e.g. "claude-opus-4-6"). The model can
@@ -68,9 +72,12 @@ fi
 
 MODEL_ARGUMENT="--model ${CLAUDE_MODEL}"
 
+BASH_MODE=false
 PASSTHROUGH_ARGS=()
 for arg in "$@"; do
-    if [ "$arg" = "--new-session" ]; then
+    if [ "$arg" = "--bash" ]; then
+        BASH_MODE=true
+    elif [ "$arg" = "--new-session" ]; then
         CONTINUE_FLAG=""
     else
         if [ "$arg" = "--resume" ] || [ "$arg" = "--continue" ]; then
@@ -113,5 +120,9 @@ for env_file in "$(pwd)"/*/.env; do
         DOCKER_ARGS+=(--volume "${SCRIPT_DIR}/../not-allowed-to-read.txt:${PROJECT_DIR}/${subdirectory}/.env:ro")
     fi
 done
+
+if [ "${BASH_MODE}" = true ]; then
+    DOCKER_ARGS+=(--entrypoint bash)
+fi
 
 exec $DOCKER run "${DOCKER_ARGS[@]}" "${IMAGE_TAG}"
