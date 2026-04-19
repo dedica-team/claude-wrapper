@@ -32,7 +32,8 @@ fi
 
 # Build the Docker image, if it does not exist yet.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-IMAGE_TAG=claudew:${CLAUDE_VERSION}
+DOCKERFILE_HASH=$(sha256sum "${SCRIPT_DIR}/../Dockerfile" | cut -c1-8)
+IMAGE_TAG=claudew:${CLAUDE_VERSION}-${DOCKERFILE_HASH}
 if ! $DOCKER image inspect "${IMAGE_TAG}" &> /dev/null; then
     echo "Docker image '${IMAGE_TAG}' not found. Building it now..."
     $DOCKER build --build-arg "CLAUDE_VERSION=${CLAUDE_VERSION}" --tag "${IMAGE_TAG}" "${SCRIPT_DIR}/.."
