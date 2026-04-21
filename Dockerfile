@@ -1,7 +1,7 @@
 FROM ubuntu:24.04
 LABEL authors="dedica GmbH"
 
-RUN apt-get update && apt-get install -y curl wget jq less git zip unzip gh imagemagick ffmpeg
+RUN apt-get update && apt-get install -y curl wget jq less git zip unzip gh imagemagick ffmpeg golang-go
 
 # Install GitHub CLI (gh) tool
 # https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian
