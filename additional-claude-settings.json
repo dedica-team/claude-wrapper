@@ -35,7 +35,12 @@
       "Bash(javac *)",
       "Bash(jar *)",
       "Bash(mvn *)",
-      "Bash(mvnw *)"
+      "Bash(mvnw *)",
+      "Bash(gradle *)",
+      "Bash(gradlew *)",
+
+      "Bash(go *)",
+      "Bash(gofmt *)"
     ]
   },
   "attribution": {
