@@ -41,3 +41,4 @@ docker run --interactive --tty claudew bash
 ## Further Resources
 
 - [Configure Claude Permissions](https://code.claude.com/docs/en/permissions#permission-rule-syntax)
+- [SDKMan Installation](https://sdkman.io/install/)
