@@ -12,7 +12,9 @@
     "allow": [
       "WebSearch",
       "WebFetch",
+
       "Edit(/**)",
+
       "Bash(grep *)",
       "Bash(cat *)",
       "Bash(head *)",
@@ -27,7 +29,13 @@
       "Bash(curl *)",
       "Bash(wget *)",
       "Bash(gh *)",
-      "Bash(git *)"
+      "Bash(git *)",
+
+      "Bash(java *)",
+      "Bash(javac *)",
+      "Bash(jar *)",
+      "Bash(mvn *)",
+      "Bash(mvnw *)"
     ]
   },
   "attribution": {
