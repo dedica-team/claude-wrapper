@@ -1,6 +1,10 @@
 FROM ubuntu:24.04
 LABEL authors="dedica GmbH"
 
+# Use Bash as default shell.
+# E.g. important to run SDKMan commands.
+SHELL ["bash", "-c"]
+
 RUN apt-get update && apt-get install -y curl wget jq less git zip unzip gh imagemagick ffmpeg golang-go
 
 # Install GitHub CLI (gh) tool
@@ -23,6 +27,8 @@ USER claude
 #     curl -s "https://get.sdkman.io?ci=true"
 ADD install-sdkman.sh /tmp/install-sdkman.sh
 RUN /tmp/install-sdkman.sh
+# Install a Java version as default.
+RUN source "${HOME}/.sdkman/bin/sdkman-init.sh" && sdk install java 25.0.2-tem
 
 # Add the Claude binary location to the path.
 ENV PATH=${CLAUDE_HOME}/.local/bin:${PATH}
