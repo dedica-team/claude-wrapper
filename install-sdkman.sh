@@ -456,6 +456,30 @@ echo "Set native version to $SDKMAN_NATIVE_VERSION ..."
 echo "$SDKMAN_NATIVE_VERSION" > "${SDKMAN_DIR}/var/version_native"
 
 
+if [[ $darwin == true ]]; then
+  touch "$sdkman_bash_profile"
+  echo "Attempt update of login bash profile on OSX..."
+  if [[ -z $(grep 'sdkman-init.sh' "$sdkman_bash_profile") ]]; then
+    echo -e "\n$sdkman_init_snippet" >> "$sdkman_bash_profile"
+    echo "Added sdkman init snippet to $sdkman_bash_profile"
+  fi
+else
+  echo "Attempt update of interactive bash profile on regular UNIX..."
+  touch "${sdkman_bashrc}"
+  if [[ -z $(grep 'sdkman-init.sh' "$sdkman_bashrc") ]]; then
+      echo -e "\n$sdkman_init_snippet" >> "$sdkman_bashrc"
+      echo "Added sdkman init snippet to $sdkman_bashrc"
+  fi
+fi
+
+echo "Attempt update of zsh profile..."
+touch "$sdkman_zshrc"
+if [[ -z $(grep 'sdkman-init.sh' "$sdkman_zshrc") ]]; then
+    echo -e "\n$sdkman_init_snippet" >> "$sdkman_zshrc"
+    echo "Updated existing ${sdkman_zshrc}"
+fi
+
+
 
 echo -e "\n\n\nAll done!\n\n"
 
