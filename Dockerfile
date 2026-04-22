@@ -18,6 +18,12 @@ ENV CLAUDE_HOME="/home/claude"
 RUN useradd --create-home --shell /bin/bash --home-dir ${CLAUDE_HOME} claude
 USER claude
 
+# Install SKDMan to manage Java installations.
+# Install script obtained via:
+#     curl -s "https://get.sdkman.io?ci=true"
+ADD install-sdkman.sh /tmp/install-sdkman.sh
+RUN /tmp/install-sdkman.sh
+
 # Add the Claude binary location to the path.
 ENV PATH=${CLAUDE_HOME}/.local/bin:${PATH}
 ARG CLAUDE_VERSION="2.1.74"
