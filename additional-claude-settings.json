@@ -22,6 +22,7 @@
       "Bash(sed *)",
       "Bash(echo *)",
       "Bash(ls *)",
+      "Bash(find *)",
       "Bash(zip *)",
       "Bash(unzip *)",
       "Bash(touch *)",
