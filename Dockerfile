@@ -27,9 +27,11 @@ USER claude
 #     curl -s "https://get.sdkman.io?ci=true"
 ADD install-sdkman.sh /tmp/install-sdkman.sh
 RUN /tmp/install-sdkman.sh
+# Ensure that the sdk function is loaded when a Bash is used.
+ENV SDKMAN_DIR=${CLAUDE_HOME}/.sdkman
+ENV BASH_ENV=${SDKMAN_DIR}/bin/sdkman-init.sh
 # Install a Java version and some tooling as default.
-RUN source "${HOME}/.sdkman/bin/sdkman-init.sh" \
-    && sdk install java 25.0.2-tem \
+RUN sdk install java 25.0.2-tem \
     && sdk install maven 3.9.15 \
     && sdk install gradle 9.4.1
 
