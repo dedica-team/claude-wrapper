@@ -7,6 +7,7 @@
       "Read(./.env.*)"
     ],
     "ask": [
+      "Bash(rm *)",
       "Bash(git push *)"
     ],
     "allow": [
@@ -17,6 +18,22 @@
 
       "Bash(cd *)",
       "Bash(pwd *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(chmod *)",
+
+      "Bash(which *)",
+      "Bash(command *)",
+
+      "Bash(source *)",
+      "Bash(sort *)",
+      "Bash(wc *)",
+      "Bash(tr *)",
+      "Bash(cut *)",
+      "Bash(printf *)",
+      "Bash(tee *)",
+      "Bash(diff *)",
+      "Bash(xargs *)",
       "Bash(grep *)",
       "Bash(cat *)",
       "Bash(head *)",
