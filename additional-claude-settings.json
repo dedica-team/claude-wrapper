@@ -36,6 +36,7 @@
       "Bash(xargs *)",
       "Bash(grep *)",
       "Bash(cat *)",
+      "Bash(less *)",
       "Bash(head *)",
       "Bash(tail *)",
       "Bash(sed *)",
@@ -48,6 +49,7 @@
       "Bash(mkdir *)",
       "Bash(curl *)",
       "Bash(wget *)",
+      "Bash(jq *)",
       "Bash(gh *)",
       "Bash(git *)",
 
@@ -61,7 +63,15 @@
       "Bash(./gradlew *)",
 
       "Bash(go *)",
-      "Bash(gofmt *)"
+      "Bash(gofmt *)",
+
+      "Bash(convert *)",
+      "Bash(identify *)",
+      "Bash(mogrify *)",
+      "Bash(magick *)",
+
+      "Bash(ffmpeg *)",
+      "Bash(ffprobe *)"
     ]
   },
   "attribution": {
