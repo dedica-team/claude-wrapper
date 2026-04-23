@@ -109,7 +109,7 @@ DOCKER_ARGS=(
     --env "ADDITIONAL_CLAUDE_ARGUMENTS=--settings ${CLAUDE_HOME}/additional-claude-settings.json ${CONTINUE_FLAG} ${MODEL_ARGUMENT} ${PASSTHROUGH_ARGS[*]}"
 )
 
-# Mount each skill from that bundled provided with this project individually, so they merge with
+# Mount each skill bundled with this project individually, so they merge with
 # any user skills from ~/.claudew/skills/ rather than replacing them.
 SKILLS_DIR="${SCRIPT_DIR}/../skills"
 for skill in "${SKILLS_DIR}"/*/; do
