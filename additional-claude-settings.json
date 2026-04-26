@@ -65,6 +65,9 @@
       "Bash(go *)",
       "Bash(gofmt *)",
 
+      "Bash(python *)",
+      "Bash(python3 *)",
+
       "Bash(convert *)",
       "Bash(identify *)",
       "Bash(mogrify *)",
