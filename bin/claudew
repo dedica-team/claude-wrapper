@@ -62,8 +62,9 @@ ADDITIONAL_SETTINGS_PATH=${SCRIPT_DIR}/../additional-claude-settings.json
 # That flag is not among the default Claude parameters and will not be
 # passed on.
 
-# Underscores in project directory are replaced by hyphens, when used in the session path.
-PROJECT_SESSION_DIRECTORY="${PROJECT_NAME//_/-}"
+# Claude Code replaces all non-alphanumeric characters with hyphens in the session directory name
+# (internally: path.replace(/[^a-zA-Z0-9]/g, "-")).
+PROJECT_SESSION_DIRECTORY="${PROJECT_NAME//[^a-zA-Z0-9]/-}"
 PROJECT_SESSION_PATH="${CLAUDEW_CONFIG_DIRECTORY}/projects/-home-claude-project-${PROJECT_SESSION_DIRECTORY}"
 if compgen -G "${PROJECT_SESSION_PATH}/*.jsonl" > /dev/null 2>&1; then
     # Previous session exists.
