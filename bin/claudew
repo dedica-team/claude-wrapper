@@ -61,8 +61,11 @@ ADDITIONAL_SETTINGS_PATH=${SCRIPT_DIR}/../additional-claude-settings.json
 # unless the --new-session flag is passed.
 # That flag is not among the default Claude parameters and will not be
 # passed on.
-PROJECT_SESSION_DIR="${CLAUDEW_CONFIG_DIRECTORY}/projects/-home-claude-project-${PROJECT_NAME}"
-if compgen -G "${PROJECT_SESSION_DIR}/*.jsonl" > /dev/null 2>&1; then
+
+# Underscores in project directory are replaced by hyphens, when used in the session path.
+PROJECT_SESSION_DIRECTORY="${PROJECT_NAME//_/-}"
+PROJECT_SESSION_PATH="${CLAUDEW_CONFIG_DIRECTORY}/projects/-home-claude-project-${PROJECT_SESSION_DIRECTORY}"
+if compgen -G "${PROJECT_SESSION_PATH}/*.jsonl" > /dev/null 2>&1; then
     # Previous session exists.
     CONTINUE_FLAG="--continue"
 else
@@ -70,8 +73,8 @@ else
     CONTINUE_FLAG=""
 fi
 
-MODEL_ARGUMENT="--model ${CLAUDE_MODEL}"
 
+MODEL_ARGUMENT="--model ${CLAUDE_MODEL}"
 BASH_MODE=false
 PASSTHROUGH_ARGS=()
 for arg in "$@"; do
