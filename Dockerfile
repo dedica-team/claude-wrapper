@@ -22,18 +22,32 @@ ENV CLAUDE_HOME="/home/claude"
 RUN useradd --create-home --shell /bin/bash --home-dir ${CLAUDE_HOME} claude
 USER claude
 
+# Ensure that SDKMan and nvm are available in every Bash session.
+# Has no effect when the tools have not been installed (yet).
+ADD --chown=claude:claude shell-init.sh ${CLAUDE_HOME}/.shell-init.sh
+ENV BASH_ENV=${CLAUDE_HOME}/.shell-init.sh
+
 # Install SKDMan to manage Java installations.
 # Install script obtained via:
 #     curl -s "https://get.sdkman.io?ci=true"
 ADD install-sdkman.sh /tmp/install-sdkman.sh
 RUN /tmp/install-sdkman.sh
-# Ensure that the sdk function is loaded when a Bash is used.
 ENV SDKMAN_DIR=${CLAUDE_HOME}/.sdkman
-ENV BASH_ENV=${SDKMAN_DIR}/bin/sdkman-init.sh
 # Install a Java version and some tooling as default.
 RUN sdk install java 25.0.2-tem \
     && sdk install maven 3.9.15 \
     && sdk install gradle 9.4.1
+
+# Install nvm to manage Node.js installations.
+# Install script obtained via:
+#     curl -o install-nvm.sh https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.5/install.sh
+ENV NVM_DIR=${CLAUDE_HOME}/.nvm
+ADD install-nvm.sh /tmp/install-nvm.sh
+RUN PROFILE=${CLAUDE_HOME}/.bashrc bash /tmp/install-nvm.sh \
+    && . "${NVM_DIR}/nvm.sh" \
+    && nvm install 24.18.0 \
+    && nvm alias default 24.18.0
+ENV PATH=${NVM_DIR}/versions/node/v24.18.0/bin:${PATH}
 
 # Add the Claude binary location to the path.
 ENV PATH=${CLAUDE_HOME}/.local/bin:${PATH}
