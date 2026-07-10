@@ -51,7 +51,7 @@ ENV PATH=${NVM_DIR}/versions/node/v24.18.0/bin:${PATH}
 
 # Add the Claude binary location to the path.
 ENV PATH=${CLAUDE_HOME}/.local/bin:${PATH}
-ARG CLAUDE_VERSION="2.1.74"
+ARG CLAUDE_VERSION="2.1.200"
 ADD install.sh /tmp/install.sh
 RUN /tmp/install.sh ${CLAUDE_VERSION}
 
