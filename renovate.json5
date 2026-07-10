@@ -18,6 +18,14 @@
     "Dependencies"
   ],
 
+  "packageRules": [
+    {
+      // Wait some time before updating to a newer Claude Code version.
+      "matchPackageNames": ["@anthropic-ai/claude-code"],
+      "minimumReleaseAge": "7 days"
+    }
+  ],
+
   "customManagers": [
     {
       "customType": "regex",
