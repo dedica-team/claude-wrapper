@@ -111,7 +111,7 @@ DOCKER_ARGS=(
     --workdir "${PROJECT_DIR}"
     --volume "${CLAUDEW_CONFIG_DIRECTORY}:${CLAUDE_HOME}/.claude/"
     --volume "${CLAUDEW_CONFIG_FILE}:${CLAUDE_HOME}/.claude.json"
-    --volume "${ADDITIONAL_SETTINGS_PATH}:${CLAUDE_HOME}/additional-claude-settings.json"
+    --volume "${ADDITIONAL_SETTINGS_PATH}:${CLAUDE_HOME}/additional-claude-settings.json:ro"
     --env "HOME=${CLAUDE_HOME}"
     --env "ADDITIONAL_CLAUDE_ARGUMENTS=--settings ${CLAUDE_HOME}/additional-claude-settings.json ${CONTINUE_FLAG} ${MODEL_ARGUMENT} ${PASSTHROUGH_ARGS[*]}"
 )
