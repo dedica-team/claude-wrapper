@@ -10,9 +10,28 @@ If you use `claudew` often, you may consider adding the `bin` directory to your 
 
 ### Additional Behavior
 
-Per default, `claudew` will continue the latest conversation for your project.
-Override that behavior by passing "--new-session" as a parameter.
+#### Access to `.env` files denied
 
+`.env` files in the project directory are overlaid within the container
+to ensure that Claude cannot read them.
+
+#### Automatically resume session
+
+Per default, `claudew` will continue the latest conversation for your project.
+Override that behavior by passing `--new-session` as a parameter:
+
+```bash
+claudew --new-session
+```
+
+#### Access container
+
+Pass `--bash` to access the container Claude is running in.
+E.g. useful to check, which tools and commands are available.
+
+```bash
+claudew --bash
+```
 
 ## claudew Development
 
