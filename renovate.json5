@@ -16,5 +16,20 @@
 
   "labels": [
     "Dependencies"
+  ],
+
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^bin/claudew$", "^Dockerfile$"],
+      "matchStrings": [
+        // Update the default Claude Code version in the script.
+        "DEFAULT_CLAUDE_VERSION=(?<currentValue>\\S+)",
+        // Update the default Claude Code version in the Dockerfile.
+        "ARG CLAUDE_VERSION=\"(?<currentValue>[^\"]+)\""
+      ],
+      "depNameTemplate": "@anthropic-ai/claude-code",
+      "datasourceTemplate": "npm"
+    }
   ]
 }
