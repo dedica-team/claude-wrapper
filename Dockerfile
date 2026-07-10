@@ -5,7 +5,8 @@ LABEL authors="dedica GmbH"
 # E.g. important to run SDKMan commands.
 SHELL ["bash", "-c"]
 
-RUN apt-get update && apt-get install -y curl wget jq less git zip unzip gh imagemagick ffmpeg golang-go
+# bubblewrap & socat are required to be able to activate sandboxing.
+RUN apt-get update && apt-get install -y curl wget jq less git zip unzip gh imagemagick ffmpeg golang-go bubblewrap socat
 
 # Install GitHub CLI (gh) tool
 # https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian
