@@ -81,6 +81,12 @@
       "Bash(nvm *)"
     ]
   },
+  "autoMode": {
+    "allow": [
+      "$defaults",
+      "Local deletions in project and /tmp: Deleting files and directories with `rm` is allowed when every target is inside /home/claude/project or inside /tmp, including files that existed before this session. Does NOT cover deleting /tmp itself, wildcard or age-based sweeps of /tmp (e.g. `rm -rf /tmp/*`), or any target outside these two directories."
+    ]
+  },
   "attribution": {
     "commit": "",
     "pr": ""
