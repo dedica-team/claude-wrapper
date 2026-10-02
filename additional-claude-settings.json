@@ -84,7 +84,14 @@
   "autoMode": {
     "allow": [
       "$defaults",
-      "Local deletions in project and /tmp: Deleting files and directories with `rm` is allowed when every target is inside /home/claude/project or inside /tmp, including files that existed before this session. Does NOT cover deleting /tmp itself, wildcard or age-based sweeps of /tmp (e.g. `rm -rf /tmp/*`), or any target outside these two directories."
+      "Local deletions in **Session working directory** and `/tmp`: Deleting files and directories is allowed when every target is inside the **Session working directory** or inside `/tmp`, including files that existed before this session. Targets must be literal paths, or variables assigned in the same command, that lexically normalize to inside the two roots. Does NOT cover deleting `/tmp` or the **Session working directory** itself, or emptying these wholesale. This rule does NOT cover `.git/`, `.claude/`, or other agent config paths."
+    ],
+    "environment": [
+      "$defaults",
+      "**Session working directory**: The **Session working directory** is the direct child of `/home/claude/project/` that contains the session's starting directory. It contains the **Trusted repo**. If the starting directory is not visible, treat only the **Trusted repo** as the Session working directory.",
+      "`/tmp` is not shared with other users or agents. It is not bind-mounted.",
+      "**Host containment** (replaces and overrides the default Host containment entry, which does not apply): Claude Code runs in an ephemeral container. The **Trusted repo** is bind-mounted into the container. The **Trusted repo** bind mount persists to the host; deletions there are permanent. Everything else in the container, including `/tmp`, is discarded at exit. No cloud metadata endpoint reachable. Attempts to reach instance-metadata or host-layer credentials still count under Containment Escape.",
+      "**Network posture** (replaces and overrides the default 'None configured' entry): open internet"
     ]
   },
   "attribution": {
