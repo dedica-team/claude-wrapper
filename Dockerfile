@@ -6,7 +6,8 @@ LABEL authors="dedica GmbH"
 SHELL ["bash", "-c"]
 
 # bubblewrap & socat are required to be able to activate sandboxing.
-RUN apt-get update && apt-get install -y curl wget jq less git zip unzip gh imagemagick ffmpeg golang-go bubblewrap socat
+# libnss3 & libnspr4 are required to run browser tests via Playwright.
+RUN apt-get update && apt-get install -y curl wget jq less git zip unzip gh imagemagick ffmpeg golang-go bubblewrap socat libnss3 libnspr4
 
 # Install GitHub CLI (gh) tool
 # https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian
