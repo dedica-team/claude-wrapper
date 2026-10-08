@@ -105,8 +105,10 @@ for arg in "$@"; do
 done
 
 DOCKER_ARGS=(
-    --user "$(id -u):$(id -g)" --rm
-    --interactive --tty
+    --user "$(id -u):$(id -g)"
+    --rm
+    --interactive
+    --tty
     --volume "$(pwd):${PROJECT_DIR}"
     --workdir "${PROJECT_DIR}"
     --volume "${CLAUDEW_CONFIG_DIRECTORY}:${CLAUDE_HOME}/.claude/"
